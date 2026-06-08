@@ -65,7 +65,7 @@ Windows Forms · Win32 Message · GDI+ Rendering · Tool Polymorphism
 layout: center
 ---
 
-# 答辩叙事线
+# 展示目录
 
 <div class="agenda-grid">
   <div v-click class="glass-card"><b>01</b><span>项目定位</span><p>为什么做截图工具，它解决什么真实使用问题</p></div>
@@ -106,7 +106,7 @@ layout: center
 
 ---
 
-# 最近更新：答辩加分点
+# 近期功能更新
 
 <div class="update-grid">
   <div v-click class="neon-card">
@@ -164,10 +164,6 @@ graph TB
   Editor --> Export
 ```
 
-<div v-click class="callout">
-主窗体不是展示页面，而是后台协调器；真正的用户交互发生在选区窗体和标注编辑器中。
-</div>
-
 ---
 
 # 函数调用链：从快捷键到 PNG
@@ -185,7 +181,7 @@ graph TB
 
 # 类、对象、接口的职责划分
 
-| 类 / 对象 | 角色 | 答辩时强调 |
+| 类 / 对象 | 角色 | 核心职责 |
 | --- | --- | --- |
 | `Program` | 程序入口 | `Mutex` 单实例、窗口消息注册 |
 | `Form1` | 后台协调器 | 托盘、热键、截图流程、开机自启 |
@@ -338,10 +334,6 @@ private void SetAutoStart(bool enabled)
 ```
 ````
 
-<div v-click class="callout">
-这个功能体现“桌面应用不仅是窗体 UI，也要能与 Windows 用户环境集成”。
-</div>
-
 ---
 
 # 选区交互：用状态机替代混乱布尔值
@@ -456,7 +448,7 @@ public interface IAnnotationTool
 
 </div>
 <div class="glass-card">
-  <h2>接口答辩说法</h2>
+  <h2>接口机制</h2>
   <div class="step-list compact">
     <div v-click><span>抽象</span>定义工具应该会做什么</div>
     <div v-click><span>封装</span>每个工具内部保存自己的状态</div>
@@ -531,7 +523,7 @@ public class HighlighterTool : IAnnotationTool
 
 </div>
 <div class="glass-card">
-  <h2>可以这样讲</h2>
+  <h2>实现机制</h2>
   <p>高亮笔保存鼠标轨迹点，用半透明颜色叠加到图片上，并开启抗锯齿。它不是简单“画一条线”，而是模拟真实标注工具的视觉效果。</p>
 </div>
 </div>
@@ -567,7 +559,7 @@ public class EraserTool : IAnnotationTool, ISourceImageTool
 
 </div>
 <div class="glass-card">
-  <h2>为什么加分</h2>
+  <h2>技术细节</h2>
   <div class="step-list compact">
     <div v-click><span>不是画白色</span>截图背景可能是任意颜色</div>
     <div v-click><span>恢复原图</span>从 `SourceImage` 取回原始像素</div>
@@ -690,14 +682,14 @@ private void AutoExportScreenshot(Bitmap image)
 
 ---
 
-# 现场演示：把代码讲活
+# 现场演示流程
 
 <div class="demo-grid">
-  <div v-click><b>1</b><span>启动程序</span><p>说明后台隐藏、托盘入口、开机自启</p></div>
+  <div v-click><b>1</b><span>启动程序</span><p>后台隐藏、托盘入口、开机自启</p></div>
   <div v-click><b>2</b><span>触发截图</span><p>按 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Z</kbd></p></div>
   <div v-click><b>3</b><span>调整选区</span><p>展示拖拽、移动、8 个控制点缩放</p></div>
   <div v-click><b>4</b><span>标注编辑</span><p>切换画笔、箭头、高亮、橡皮擦</p></div>
-  <div v-click><b>5</b><span>撤销重做</span><p>把 DrawingManager 的两个栈讲出来</p></div>
+  <div v-click><b>5</b><span>撤销重做</span><p>展示 DrawingManager 的两个历史栈</p></div>
   <div v-click><b>6</b><span>保存输出</span><p>展示剪贴板和 Pictures 目录</p></div>
 </div>
 
@@ -724,10 +716,6 @@ private void AutoExportScreenshot(Bitmap image)
     <p>探索窗口悬停识别、控件边界吸附、快捷操作建议，让截图更智能。</p>
     <small>Interaction / Assistive Capture / Efficiency</small>
   </div>
-</div>
-
-<div v-click class="callout">
-路线图的讲法：v1.0 证明能做完整产品，v2.0 证明会技术升级，v3.0 证明有进一步创新意识。
 </div>
 
 ---

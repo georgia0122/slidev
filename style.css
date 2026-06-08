@@ -397,8 +397,8 @@ kbd {
 
 .code-panel pre,
 .slidev-code {
-  font-size: 0.78rem !important;
-  line-height: 1.38 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.42 !important;
   max-height: 500px;
 }
 
