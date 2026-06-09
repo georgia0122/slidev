@@ -725,7 +725,7 @@ class: text-center
 
 # <span class="gradient-text">Thank You</span>
 
-### 欢迎老师和同学提问
+### 谢谢大家！
 
 <div class="mt-10 opacity-70">
 PrintScreenApp · C# · .NET 8 · Windows Forms
