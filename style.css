@@ -181,6 +181,51 @@ kbd {
   -webkit-backdrop-filter: blur(18px);
 }
 
+.video-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.video-shell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(199, 238, 255, 0.34);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(211, 241, 255, 0.08)),
+    rgba(16, 46, 78, 0.54);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    0 28px 72px rgba(3, 13, 29, 0.36),
+    0 0 34px rgba(52, 214, 255, 0.12);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+.video-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.28), transparent 28%, transparent 70%, rgba(143, 234, 255, 0.14));
+  z-index: 1;
+}
+
+.video-shell video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: rgba(3, 13, 29, 0.72);
+}
+
+.video-notes {
+  padding: 22px;
+}
+
 .window-top {
   height: 40px;
   display: flex;
@@ -298,6 +343,10 @@ kbd {
   min-height: 132px;
   padding: 18px;
   text-align: left;
+}
+
+.module-agenda .glass-card {
+  min-height: 150px;
 }
 
 .agenda-grid b {
