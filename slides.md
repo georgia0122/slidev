@@ -27,7 +27,7 @@ fonts:
       基于 <strong>.NET 8</strong> / Windows Forms 的截图、选区、标注与导出工具
     </p>
     <div class="kbd-line">
-      <kbd>Ctrl</kbd><span>+</span><kbd>Alt</kbd><span>+</span><kbd>Z</kbd>
+      <kbd>Ctrl</kbd><span>+</span><kbd>Alt</kbd><span>+</span><kbd>Z</kbd><span>/</span><kbd>B</kbd>
       <em>Trigger Capture</em>
     </div>
     <div class="tech-stack">
@@ -62,6 +62,11 @@ fonts:
 Demo First · Module Explain · Code Evidence
 </div>
 
+<!--
+在日常的学习、程序调试以及课程报告撰写中，局部截图和即时标注是一个极其高频的需求 。
+为此，我开发了这款轻量、快速、后台常驻并具备高扩展性的独立截图工具 。希望通过这个项目，能将我们在课程中学习到的 面向对象编程、GDI+ 图像绘制、Win32 底层消息循环机制以及设计模式 进行一次完整的工程化实践
+-->
+
 ---
 layout: center
 ---
@@ -83,7 +88,7 @@ layout: center
 
 <div class="two-col">
   <div class="glass-card">
-    <h2>主流程职责</h2>
+    <h2>知识点</h2>
     <div class="step-list">
       <div v-click><span>Boot</span>应用启动后创建主窗体，但默认隐藏到后台。</div>
       <div v-click><span>Tray</span>通过托盘图标提供入口，不打断用户当前工作。</div>
@@ -93,7 +98,7 @@ layout: center
   </div>
 
   <div class="glass-card">
-    <h2>技术深度</h2>
+    <h2>知识点</h2>
     <div class="matrix">
       <div v-click>WinForms 生命周期</div>
       <div v-click>Application.Run 消息泵</div>
@@ -104,6 +109,10 @@ layout: center
     </div>
   </div>
 </div>
+
+<!--
+首先，介绍本系统的主程序生命周期与流程控制。作为一个常驻后台的工具，核心痛点是防止用户重复启动多个实例，从而导致系统热键冲突。
+-->
 
 ---
 
@@ -149,6 +158,10 @@ private void StartRegionScreenshot()
 </div>
 </div>
 
+<!--
+我在 Program.cs 入口中引入了 全局 Mutex（互斥量） 。当程序检测到已有实例在后台运行时，第二实例不会直接退出，而是利用 Win32 的 PostMessage 向系统广播一个自定义的窗口消息，唤醒已有的后台实例直接触发截图，随后新实例安全退出 。这保证了进程的唯一性 。在主窗体 Form1 中，我将窗口的 Opacity 设为 0、隐藏任务栏显示，并将其挂载在系统托盘 NotifyIcon 中，从而实现了真正的“后台无感运行” 。
+-->
+
 ---
 
 # 模块 02：快捷键唤起演示
@@ -158,7 +171,7 @@ private void StartRegionScreenshot()
     <video :src="'/videos/hotkey-demo.mp4'" autoplay loop muted playsinline controls></video>
   </div>
   <div class="glass-card video-notes">
-    <h2>演示观察点</h2>
+    <h2>知识点</h2>
     <div class="step-list compact">
       <div v-click><span>后台常驻</span>主窗口隐藏运行，用户不用先打开界面。</div>
       <div v-click><span>全局触发</span>按下 <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Z</kbd> 后立即进入截图。</div>
@@ -174,7 +187,7 @@ private void StartRegionScreenshot()
 
 <div class="two-col">
   <div class="glass-card">
-    <h2>从操作到代码</h2>
+    <h2>知识点</h2>
     <div class="step-list">
       <div v-click><span>Register</span>调用 Win32 `RegisterHotKey` 注册系统级热键。</div>
       <div v-click><span>Handle</span>热键绑定到窗体句柄，系统把消息派发给该窗体。</div>
@@ -184,7 +197,7 @@ private void StartRegionScreenshot()
   </div>
 
   <div class="glass-card">
-    <h2>答辩关键词</h2>
+    <h2>知识点</h2>
     <div class="matrix">
       <div v-click>P/Invoke</div>
       <div v-click>窗口句柄</div>
@@ -281,7 +294,7 @@ public sealed class GlobalKeyboardHook : IDisposable
 
 </div>
 <div class="glass-card">
-  <h2>为什么有技术含量</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Hook</span>底层键盘钩子比普通按钮事件更接近系统消息。</div>
     <div v-click><span>Marshal</span>把非托管内存结构转换成 C# 结构体。</div>
@@ -359,7 +372,7 @@ protected override void OnMouseMove(MouseEventArgs e)
 
 </div>
 <div class="glass-card">
-  <h2>交互状态</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Down</span>记录起点，并判断是新建、移动还是缩放。</div>
     <div v-click><span>Move</span>根据当前模式持续更新选区矩形。</div>
@@ -395,7 +408,7 @@ protected override void OnPaint(PaintEventArgs e)
 
 </div>
 <div class="glass-card">
-  <h2>为什么防闪烁</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>问题</span>鼠标移动时遮罩层频繁重绘，容易出现闪烁。</div>
     <div v-click><span>Buffer</span>先在内存缓冲区完成绘制，再一次性呈现到屏幕。</div>
@@ -405,11 +418,6 @@ protected override void OnPaint(PaintEventArgs e)
 </div>
 </div>
 
-<!--
-我设计了系统的核心主控骨架。整个程序由 Program.cs 启动并进行高DPI优化，在后台由 Form1 进行常驻和全局状态调度。
-
-当系统消息循环接收到热键通知后，主控层会调度 ScreenshotHelper 抓取全屏，并将数据流传递给组员 A 负责的选区模块。下面请组员 A 汇报他是如何通过鼠标事件流和双缓冲机制，精准捕获并回传用户所需的矩形区域的
--->
 
 ---
 
@@ -441,7 +449,7 @@ private Rectangle ClampToScreen(Rectangle rect)
 
 </div>
 <div class="glass-card">
-  <h2>坐标难点</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>方向</span>用户可以从任意方向拖拽，矩形必须标准化。</div>
     <div v-click><span>边界</span>移动和缩放不能让选区跑出屏幕。</div>
@@ -474,6 +482,10 @@ stateDiagram-v2
   <div v-click><b>Moving / Resizing</b><span>复用同一个选区，支持调整而不是重新截图。</span></div>
 </div>
 
+<!--
+这里是选区交互的 状态机设计图。从 Idle 等待状态出发，通过鼠标与键盘事件（如 Esc 取消、Enter 确认、双击等），系统能够严丝合缝地在各个交互状态间流转，保证了极高的稳定性和容错能力 。
+-->
+
 ---
 
 # 模块 04：工具扩展演示
@@ -483,7 +495,7 @@ stateDiagram-v2
     <video :src="'/videos/mask-demo.mp4'" autoplay loop muted playsinline controls></video>
   </div>
   <div class="glass-card video-notes">
-    <h2>演示观察点</h2>
+    <h2>知识点</h2>
     <div class="step-list compact">
       <div v-click><span>Toolbar</span>工具栏切换当前标注工具。</div>
       <div v-click><span>Preview</span>拖动过程中显示预览，松开后提交到 Bitmap。</div>
@@ -522,7 +534,7 @@ public interface IAnnotationTool
 
 </div>
 <div class="glass-card">
-  <h2>经典设计思想</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Strategy</span>每个工具是一种绘制策略，运行时可切换。</div>
     <div v-click><span>Polymorphism</span>编辑器调用统一接口，不依赖具体类。</div>
@@ -608,7 +620,7 @@ private void ApplyMosaic(Bitmap bitmap, Rectangle area)
 
 </div>
 <div class="glass-card">
-  <h2>滤镜原理</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Block</span>把选中区域切成固定大小的小块。</div>
     <div v-click><span>Average</span>计算每个块的平均颜色。</div>
@@ -686,7 +698,7 @@ public class EraserTool : IAnnotationTool, ISourceImageTool
     <video :src="'/videos/undo-redo-demo.mp4'" autoplay loop muted playsinline controls></video>
   </div>
   <div class="glass-card video-notes">
-    <h2>演示观察点</h2>
+    <h2>知识点</h2>
     <div class="step-list compact">
       <div v-click><span>Before</span>每次绘制前保存当前图片快照。</div>
       <div v-click><span>Undo</span>从撤销栈取出上一张图，恢复画布状态。</div>
@@ -726,7 +738,7 @@ public bool Undo()
 
 </div>
 <div class="glass-card">
-  <h2>设计模式解释</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>State</span>当前图片是一种可恢复状态。</div>
     <div v-click><span>Snapshot</span>保存 Bitmap 快照，相当于保存每一步结果。</div>
@@ -766,7 +778,7 @@ public void Clear()
 
 </div>
 <div class="glass-card">
-  <h2>答辩补充</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Limit</span>历史数量需要上限，避免连续绘制占用过多内存。</div>
     <div v-click><span>Clear</span>新操作发生后重做栈应清空，符合用户预期。</div>
@@ -775,6 +787,10 @@ public void Clear()
   </div>
 </div>
 </div>
+
+<!--
+由于 Bitmap 属于非托管资源，频繁的克隆快照会压榨系统内存 。为此，我们加入了 历史上限裁剪机制（TrimHistory），将撤销步数限制在安全范围内，将超出部分的旧位图显式调用 Dispose() 进行销毁 。在编辑器关闭时，通过遍历双栈执行彻底的资源清空，保障了优秀的内存控制。
+-->
 
 ---
 
@@ -819,7 +835,7 @@ private void AutoExportScreenshot(Bitmap image)
 
 </div>
 <div class="glass-card">
-  <h2>模块价值</h2>
+  <h2>知识点</h2>
   <div class="step-list compact">
     <div v-click><span>Clipboard</span>截图后直接进入剪贴板，方便粘贴到聊天或文档。</div>
     <div v-click><span>PNG</span>同时落盘保存，形成可追溯的本地文件。</div>
@@ -828,6 +844,12 @@ private void AutoExportScreenshot(Bitmap image)
   </div>
 </div>
 </div>
+
+<!--
+当用户完成所有标注点击确认后，程序将执行 自动化导出 。
+系统会同时走两条路径：第一，调用 Clipboard.SetImage 将最终图像直接送入系统剪贴板，方便用户即时粘贴到社交软件或实验报告中 ；第二，自动读取用户的 MyPictures 特殊文件夹路径 ，生成按时间戳命名的 PNG 文件落盘保存 。
+同时，为了实现开机自启，系统通过操作注册表的 CurrentUser\Software\Microsoft\Windows\CurrentVersion\Run 项，写入当前的程序路径 ，使用户能够在日常使用中完全无感唤起。
+-->
 
 ---
 
@@ -866,28 +888,32 @@ graph TB
   Editor --> Export
 ```
 
+<!--
+纵观整个系统，这是一张完整的 架构拓扑图。程序从 Program 入口出发，利用单实例机制保障唯一性，通过主窗体 Form1 作为中央协调器，纵向贯穿了基于 Win32 与钩子的系统支撑层，横向调度了以全屏遮罩、选区交互为主的截图层，以及高度解耦、面向接口的标注层，各模块职责清晰，内聚度高 。
+-->
+
 ---
 
-# 总结：从演示到代码的闭环
+# 产品迭代路线图
 
 <div class="roadmap">
   <div v-click class="roadmap-item current">
-    <span>01</span>
-    <b>用户动作可见</b>
-    <p>先展示快捷键、工具扩展、撤销重做，让老师看到真实功能。</p>
-    <small>Demo / Interaction / Feedback</small>
+    <span>v1.0</span>
+    <b>WinForms 截图闭环</b>
+    <p>热键触发、区域截图、标注编辑、撤销重做、剪贴板与本地保存。</p>
+    <small>功能闭环 / C# 基础 / 桌面系统能力</small>
   </div>
   <div v-click class="roadmap-item">
-    <span>02</span>
-    <b>技术链路清晰</b>
-    <p>从 Win32 消息、鼠标事件、GDI+ 绘图到接口多态逐层展开。</p>
-    <small>Win32 / Mouse / GDI+ / Interface</small>
+    <span>v2.0</span>
+    <b>WPF 现代化重构</b>
+    <p>使用 XAML、数据绑定和 MVVM 思路重构界面，提升动画、布局和 DPI 适配。</p>
+    <small>MVVM / Modern UI / Maintainability</small>
   </div>
   <div v-click class="roadmap-item future">
-    <span>03</span>
-    <b>设计思想支撑</b>
-    <p>用策略模式、面向接口、状态栈和命令模式思想解释代码结构。</p>
-    <small>Strategy / State / Command</small>
+    <span>v3.0</span>
+    <b>基础人机交互截图</b>
+    <p>探索窗口悬停识别、控件边界吸附、快捷操作建议，让截图更智能。</p>
+    <small>Interaction / Assistive Capture / Efficiency</small>
   </div>
 </div>
 
@@ -898,7 +924,8 @@ class: text-center
 
 # <span class="gradient-text">Thank You</span>
 
-### 欢迎老师和同学提问
+### 谢谢大家！
+
 
 <div class="mt-10 opacity-70">
 PrintScreenApp · C# · .NET 8 · Windows Forms
