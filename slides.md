@@ -405,6 +405,12 @@ protected override void OnPaint(PaintEventArgs e)
 </div>
 </div>
 
+<!--
+我设计了系统的核心主控骨架。整个程序由 Program.cs 启动并进行高DPI优化，在后台由 Form1 进行常驻和全局状态调度。
+
+当系统消息循环接收到热键通知后，主控层会调度 ScreenshotHelper 抓取全屏，并将数据流传递给组员 A 负责的选区模块。下面请组员 A 汇报他是如何通过鼠标事件流和双缓冲机制，精准捕获并回传用户所需的矩形区域的
+-->
+
 ---
 
 # 遮罩选区：复杂坐标计算
